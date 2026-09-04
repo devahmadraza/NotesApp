@@ -1,0 +1,14 @@
+export function getAllNotes (req,res){
+    res.status(200).send('you just feched the notes ')
+}
+
+export function createANote (req,res){
+    res.status(201).json({message:"Note created succeddfully!"})
+}
+
+export function updateNote(req,res){
+    res.status(201).json({message:"Note updated succeddfully!"})
+}
+export function deleteNote(req,res){
+    res.status(201).json({message:"Note deleted succeddfully!"})
+}
