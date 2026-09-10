@@ -3,7 +3,7 @@ export function getAllNotes (req,res){
 }
 
 export function createANote (req,res){
-    res.status(201).json({message:"Note created succeddfully!"})
+    res.status(201).json({message:"Note creasdstedd succeddfully!"})
 }
 
 export function updateNote(req,res){
