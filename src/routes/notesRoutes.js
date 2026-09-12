@@ -3,6 +3,7 @@ import { getAllNotes , createANote ,updateNote ,deleteNote } from '../controller
 const router=express.Router();
 
 router.get("/" ,getAllNotes)
+router.get("/:id" ,getNoteByID)
 router.post("/",createANote)
 router.put("/:id", updateNote)
 router.delete('/:id', deleteNote)

@@ -5,6 +5,7 @@ import Note from "../models/Note.js"
 export async function getAllNotes(req, res) {
     try {
         const notes = await Note.find()
+        if(notes.length==0){return res.status(200).send({message:"No Notes Available. Create one"})}
         res.status(200).json(notes)
     } catch (error) {
         console.error("Error in getAllNotes controller", error)
@@ -13,6 +14,20 @@ export async function getAllNotes(req, res) {
 }
 // END getAllNotes Controller
 
+export async function getNoteByID(req,res){
+ try {
+    const note=await note.findByID(req.params.id)
+    if (!note) {
+        return
+        res.status(404).json({message:"Note Not Found"});
+    }
+    res.json(note)
+ } catch (error) {
+    console.error("Error in getNoteByID controller", error)
+        res.status(500).json({ message: "Internal Server Error" })
+ }
+    
+}
 
 //createNote controller 
 export async function createANote(req, res) {
@@ -35,13 +50,13 @@ export async function createANote(req, res) {
 export async function updateNote(req, res) {
     try {
         const { title, content } = req.body
-        const updatedNote = await Note.findByIdAndUpdate(req.params.id , {title, content},{new :true,})
+        const updatedNote = await Note.findByIdAndUpdate(req.params.id , {title, content},{new :true})
         if (!updatedNote) return res.status(404).json({message:"Note Not Found"})
             res.status(200).json(updatedNote)
         
     } catch (error) {
         
-  console.error("Error in updateNote controller", error)
+        console.error("Error in updateNote controller", error)
         res.status(500).json({ message: "Internal Server Error" })
     }
 }
@@ -50,6 +65,16 @@ export async function updateNote(req, res) {
 
 
 
-export function deleteNote(req, res) {
-    res.status(201).json({ message: "Note deleted succeddfully!" })
+export async function deleteNote(req, res) {
+    try {
+        const deletedNote= await Note.findByIdAndDelete(req.params.id)
+        if (!deletedNote) return res.status(404).json({message:"Note Not Found"})
+            res.status(200).json("Note Deleted Succesfully")
+
+    } catch (error) {
+               console.error("Error in deleteNote controller", error)
+        res.status(500).json({ message: "Internal Server Error" })
+    }
+
 }
+
