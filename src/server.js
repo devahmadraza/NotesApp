@@ -11,7 +11,14 @@ connectDB()
 
 //middleware
 app.use(express.json())
-//middleware
+
+app.use((req,res,next)=>{
+console.log(`Req method is ${req.method} & Req URL is ${req.url}`)
+next()
+})
+
+
+// END middleware
 
 
 app.use("/api/notes" , notesRoutes)
