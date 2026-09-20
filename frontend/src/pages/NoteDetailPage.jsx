@@ -1,7 +1,8 @@
+
 const NoteDetailPage = () => {
   return (
     <div>
-      NoteDetailPage
+NoteDetailPage      
     </div>
   )
 }
