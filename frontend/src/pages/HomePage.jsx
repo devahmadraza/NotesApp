@@ -22,7 +22,7 @@ const HomePage = () => {
       } catch (error) {
         console.log("Error Fetching Notes", error)
         console.log(error)
-        if (error.response.status === 429) {
+        if (error.response?.status === 429) {
           setIsRateLimited(true)
 
         } else {
@@ -37,16 +37,16 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div className="nim-h-screen">
+    <div className="min-h-screen">
       <Navbar />
       {isRateLimited && <RateLimitidUi />}
 
       <div className="max-w-7xl mx-auto p-4 my-6">
         {loading && <div className="text-center text-primary py-10">Loading notes...</div>}
         {notes.length > 0 && !isRateLimited && (
-          <div className="grid grid-cols1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {notes.map(note => (
-              <NoteCard key={note.id} note={note} />
+              <NoteCard key={note._id} note={note} />
             ))}
 
           </div>
