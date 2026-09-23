@@ -1,5 +1,6 @@
 import { PenSquareIcon, Trash } from "lucide-react"
 import { Link } from "react-router-dom"
+import { formatDate } from "../lib/utils"
 
 const NoteCard = ({ note }) => {
     return (
@@ -11,13 +12,14 @@ const NoteCard = ({ note }) => {
                 <h3 className="card-title text-base-content">{note.title}</h3>
                 <p className="line-clamp-3 text-base-content/70">{note.content}</p>
                 <div className="card-actions justify-between items-center mt-4">
-                    <span className="text-sm text-base-content/60">{note.createdAt}
+                    <span className="text-sm text-base-content/60">{formatDate(new Date(note.createdAt) )}
                     </span>
                     <div className="flex items-center gap-1">
                         <PenSquareIcon className="size-4" />
                         <button className="btn btn-ghost btn-xs text-error">
                             <Trash className="size-4" />
                         </button>
+                        
                     </div>
                 </div>
 
