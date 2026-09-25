@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
 import Navbar from "../components/Navbar"
 import NoteCard from "../components/NoteCard"
-import NotesNotFound from "../components/NotesNotFound"
+
 import RateLimitidUi from "../components/RateLimitidUi"
 
 import toast from "react-hot-toast"
 import api from "../lib/axios"
+import NotesNotFound from "../components/NotesNotFound"
 const HomePage = () => {
 
   const [isRateLimited, setIsRateLimited] = useState(false)

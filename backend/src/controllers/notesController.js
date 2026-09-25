@@ -2,17 +2,30 @@ import Note from "../models/Note.js"
 
 
 // getAllNotes Controller
-
 export async function getAllNotes(_, res) {
     try {
-        const notes = await Note.find().sort({createdAt:1})
-        if(notes.length==0){ return res.status(200).send({message:"No Notes Available. Create one"})}
-        res.status(200).json(notes)
+        const notes = await Note.find().sort({ createdAt: 1 });
+
+        res.status(200).json(notes);
+
     } catch (error) {
-        console.error("Error in getAllNotes controller", error)
-        res.status(500).json({ message: "Internal Server Error" })
+        console.error("Error in getAllNotes controller", error);
+
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
     }
 }
+// export async function getAllNotes(_, res) {
+//     try {
+//         const notes = await Note.find().sort({createdAt:1})
+//         if(notes.length==0){ return res.status(200).send({message:"No Notes Available. Create one"})}
+//         res.status(200).json(notes)
+//     } catch (error) {
+//         console.error("Error in getAllNotes controller", error)
+//         res.status(500).json({ message: "Internal Server Error" })
+//     }
+// }
 
 // END getAllNotes Controller
 
