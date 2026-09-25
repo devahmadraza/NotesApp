@@ -31,11 +31,42 @@ const NoteDetailPage = () => {
     }
     fetchNote()
   }, [id])
-  const handleDelete = () => {
+
+
+  const handleDelete = async () => {
+
+    if (!window.confirm("Are you sure you want to delete this note?")) return
+
+    try {
+
+      await api.delete(`/notes/${id}`)
+      toast.success("Note Deleted Successfully")
+      navigate("/")
+    } catch (error) {
+      console.log('Error in handleDelete', error)
+      toast.error("Failed to delete note")
+
+    }
 
   }
+  const handleSave = async () => { 
+  if (!note.title.trim() || !note.content.trim()) {
+    toast.error("Please adda title or content")
+    return
+  }
+  setSaving(true)
+  try {
+    await api.put(`/notes/${id}`, note)
+toast.success('Note Updated Successfully')
 
-
+  } catch (error) {
+   console.log('Error in handlesave', error)
+      toast.error("Failed to save note")
+  } finally {
+setSaving(false)
+navigate("/")
+  }
+}
   if (loading) {
     return (
       <div className="min-h-screen bg-base-200 flex items-center justify-center">
@@ -70,8 +101,8 @@ const NoteDetailPage = () => {
                   placeholder="Note Title "
                   className="input input-bordered"
                   value={note.title}
-                  onChange={(e) => setNote({...note , title:e.target.value})}
-                  />
+                  onChange={(e) => setNote({ ...note, title: e.target.value })}
+                />
 
               </div>
               <div className="form-control mb-4">
@@ -82,10 +113,11 @@ const NoteDetailPage = () => {
                   placeholder="Write your note here..."
                   className="input input-bordered h-32"
                   value={note.content}
-                  onChange={(e) => setNote({...note , content:e.target.value})}
+                  onChange={(e) => setNote({ ...note, content: e.target.value })}
                 />
               </div>
-              <div className="card-action just">
+              <div className="card-action justify-end">
+                <button className=" btn btn-primary" disabled={saving} onClick={handleSave}> {saving ? "Saving..." : "Save Changes"}</button>
 
               </div>
             </div>
